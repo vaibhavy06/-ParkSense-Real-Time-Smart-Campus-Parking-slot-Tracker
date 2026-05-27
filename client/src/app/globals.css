@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ParkSense Deep-Space Dark Glassmorphic Design System */
+:root {
+  --bg-base: #080B12;
+  --bg-surface: #0E1320;
+  --bg-card: rgba(255, 255, 255, 0.04);
+  --bg-card-hover: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.15);
+
+  --available: #00E676;
+  --available-glow: rgba(0, 230, 118, 0.2);
+  --available-dim: rgba(0, 230, 118, 0.08);
+
+  --occupied: #FF4B4B;
+  --occupied-glow: rgba(255, 75, 75, 0.2);
+  --occupied-dim: rgba(255, 75, 75, 0.08);
+
+  --reserved: #FFB300;
+  --reserved-glow: rgba(255, 179, 0, 0.2);
+  --reserved-dim: rgba(255, 179, 0, 0.08);
+
+  --disabled: #3A3F52;
+  --disabled-dim: rgba(58, 63, 82, 0.4);
+
+  --accent: #4F8EF7;
+  --accent-glow: rgba(79, 142, 247, 0.25);
+  
+  --text-primary: #F0F2FF;
+  --text-secondary: #7B82A0;
+  --text-muted: #3D4260;
+
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+}
+
+/* Light Theme Overrides (triggered by class="light") */
+.light {
+  --bg-base: #F3F5F9;
+  --bg-surface: #FFFFFF;
+  --bg-card: rgba(8, 11, 18, 0.03);
+  --bg-card-hover: rgba(8, 11, 18, 0.06);
+  --glass-border: rgba(8, 11, 18, 0.08);
+  --glass-border-hover: rgba(8, 11, 18, 0.15);
+
+  --available: #10B981; /* Saturated Emerald */
+  --available-glow: rgba(16, 185, 129, 0.2);
+  --available-dim: rgba(16, 185, 129, 0.06);
+
+  --occupied: #EF4444; /* Saturated Red */
+  --occupied-glow: rgba(239, 68, 68, 0.2);
+  --occupied-dim: rgba(239, 68, 68, 0.06);
+
+  --reserved: #F59E0B; /* Saturated Amber */
+  --reserved-glow: rgba(245, 158, 11, 0.2);
+  --reserved-dim: rgba(245, 158, 11, 0.06);
+
+  --disabled: #9CA3AF;
+  --disabled-dim: rgba(156, 163, 175, 0.2);
+
+  --accent: #2563EB;
+  --accent-glow: rgba(37, 99, 235, 0.25);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+
+  --background: var(--bg-base);
+  --foreground: var(--text-primary);
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-body), sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  min-height: 100vh;
+}
+
+/* Premium Animations & Keyframes */
+
+/* Reserved pulse ring */
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+.animate-pulse-ring {
+  transform-origin: center;
+  animation: pulseRing 1.5s cubic-bezier(0.25, 0, 0, 1) infinite;
+}
+
+/* Success screen car drive in */
+@keyframes carDriveIn {
+  0% {
+    transform: translateY(120px) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+  30% {
+    transform: translateY(60px) rotate(-15deg) scale(0.9);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(20px) rotate(5deg) scale(1);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+}
+.animate-car-drive-in {
+  animation: carDriveIn 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Landing page driving cars loop */
+@keyframes landingDriveLoop {
+  0% {
+    transform: translateY(150px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-250px);
+    opacity: 0;
+  }
+}
+.animate-drive-loop {
+  animation: landingDriveLoop 5s linear infinite;
+}
+
+/* Radial light glow bloom */
+.bg-glow-radial {
+  background: radial-gradient(circle at 50% -20%, rgba(79, 142, 247, 0.15), rgba(79, 142, 247, 0) 65%);
+}
+
+.bg-glow-radial-light {
+  background: radial-gradient(circle at 50% -20%, rgba(37, 99, 235, 0.08), rgba(37, 99, 235, 0) 65%);
+}
+
+/* Neon Glow dropshadow utilities */
+.glow-available {
+  box-shadow: 0 0 15px -3px var(--available);
+}
+.glow-occupied {
+  box-shadow: 0 0 15px -3px var(--occupied);
+}
+.glow-reserved {
+  box-shadow: 0 0 15px -3px var(--reserved);
+}
+.glow-accent {
+  box-shadow: 0 0 15px -3px var(--accent);
+}
+
+/* Webkit scrollbar for premium custom feel */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--glass-border-hover);
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-grid {
+    display: grid !important;
+    grid-template-columns: repeat(10, 1fr) !important;
+    gap: 8px !important;
+  }
+}

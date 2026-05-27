@@ -1,0 +1,29 @@
+# Dependency folders
+node_modules/
+jspm_packages/
+
+# Next.js build artifacts
+.next/
+out/
+
+# TypeScript builds
+dist/
+build/
+
+# Databases & local configs
+*.db
+*.db-journal
+.env
+.env.local
+.env.production
+.env.development
+
+# Vercel & Editor configs
+.vercel/
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

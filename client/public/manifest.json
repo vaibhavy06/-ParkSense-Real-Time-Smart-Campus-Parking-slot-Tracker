@@ -1,0 +1,24 @@
+{
+  "name": "ParkSense Smart Parking Tracker",
+  "short_name": "ParkSense",
+  "description": "Real-time smart campus parking slot tracker and booking dashboard",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F9FC",
+  "theme_color": "#2563EB",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String        @id @default(cuid())
+  name         String
+  email        String        @unique
+  password     String
+  role         String        @default("STUDENT") // STUDENT, FACULTY, GUARD, ADMIN
+  vehicleNo    String?
+  createdAt    DateTime      @default(now())
+  reservations Reservation[]
+  logs         EntryLog[]
+}
+
+model Zone {
+  id           String   @id @default(cuid())
+  name         String   // "Zone A - Main Gate", "Zone B - Academic Block"
+  totalSlots   Int
+  allowedRoles String   // Comma-separated roles, e.g. "STUDENT,FACULTY,GUARD,ADMIN"
+  slots        Slot[]
+}
+
+model Slot {
+  id           String        @id @default(cuid())
+  slotCode     String        @unique  // "A-01", "B-12"
+  zoneId       String
+  zone         Zone          @relation(fields: [zoneId], references: [id])
+  status       String        @default("AVAILABLE") // AVAILABLE, OCCUPIED, RESERVED, DISABLED
+  x            Float         // SVG map coordinate
+  y            Float         // SVG map coordinate
+  isDisabled   Boolean       @default(false)
+  reservations Reservation[]
+  logs         EntryLog[]
+}
+
+model Reservation {
+  id        String            @id @default(cuid())
+  userId    String
+  user      User              @relation(fields: [userId], references: [id])
+  slotId    String
+  slot      Slot              @relation(fields: [slotId], references: [id])
+  expiresAt DateTime          // 15 min from creation
+  status    String            @default("ACTIVE") // ACTIVE, FULFILLED, EXPIRED, CANCELLED
+  createdAt DateTime          @default(now())
+}
+
+model EntryLog {
+  id        String    @id @default(cuid())
+  slotId    String
+  slot      Slot      @relation(fields: [slotId], references: [id])
+  userId    String?
+  user      User?     @relation(fields: [userId], references: [id])
+  vehicleNo String?
+  action    String    // ENTRY or EXIT
+  timestamp DateTime  @default(now())
+}
