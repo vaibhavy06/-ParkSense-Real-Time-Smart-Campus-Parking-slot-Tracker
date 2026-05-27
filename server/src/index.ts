@@ -10,6 +10,27 @@ import { startSimulation } from './simulation/simulator';
 
 dotenv.config();
 
+import fs from 'fs';
+import path from 'path';
+
+// If running in production with SQLite and the persistent DB file doesn't exist, copy the seeded dev.db
+if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL?.startsWith('file:')) {
+  const dbPath = process.env.DATABASE_URL.replace('file:', '');
+  const absoluteDbPath = path.isAbsolute(dbPath) ? dbPath : path.resolve(dbPath);
+  
+  if (!fs.existsSync(absoluteDbPath)) {
+    console.log(`Persistent database not found at ${absoluteDbPath}. Copying seeded database...`);
+    const seedDbPath = path.resolve(__dirname, '../prisma/dev.db');
+    try {
+      fs.mkdirSync(path.dirname(absoluteDbPath), { recursive: true });
+      fs.copyFileSync(seedDbPath, absoluteDbPath);
+      console.log('Seeded database copied successfully!');
+    } catch (err: any) {
+      console.error('Failed to copy seeded database:', err.message);
+    }
+  }
+}
+
 const app = express();
 const httpServer = createServer(app);
 
