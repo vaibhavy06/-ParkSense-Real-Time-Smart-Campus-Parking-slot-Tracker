@@ -108,6 +108,7 @@ export default function CampusMap({
               <feMergeNode in="blur1" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
+            
           </filter>
           <filter id="tealGlow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur1" />
